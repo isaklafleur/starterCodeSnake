@@ -1,0 +1,28 @@
+{
+  "name": "lab-games-startercodesnake",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isaklafleur/starterCodeSnake.git"
+  },
+  "author": "Isak La Fleur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/isaklafleur/starterCodeSnake/issues"
+  },
+  "homepage": "https://github.com/isaklafleur/starterCodeSnake#readme",
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.1.3",
+    "eslint-config-jquery": "^1.0.1",
+    "eslint-plugin-import": "^2.2.0"
+  },
+  "dependencies": {
+    "eslint-config-airbnb-base": "^11.1.3"
+  }
+}
