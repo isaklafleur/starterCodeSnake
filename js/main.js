@@ -74,7 +74,7 @@ Game.prototype.assignControlKeys = function () {
         this.snake.goDown();
         break;
       case 80:
-        if(this.intervalID) {
+        if (this.intervalID) {
           this.stop();
         } else {
           this.start();
@@ -95,7 +95,7 @@ Game.prototype.generateFood = function () {
 };
 
 Game.prototype.drawFood = function () {
-  this.snake.body.forEach((position) => {
+  this.snake.body.forEach((food) => {
     const selector = `[data-row=${this.food.row}][data-column=${this.food.column}]`;
     $(selector).addClass('food');
   });
