@@ -14,46 +14,51 @@ function Game(options) {
 }
 
 
-Game.prototype.drawSnake = function() {
-  this.snake.body.forEach((position, index) => {
+Game.prototype.drawSnake = function () {
+  this.snake.body.forEach((position) => {
     const selector = `[data-row=${position.row}][data-column=${position.column}]`;
     $(selector).addClass('snake');
   });
 };
 
-Game.prototype.clearSnake = function() {
+Game.prototype.clearSnake = function () {
   $('.snake').removeClass('snake');
 };
 
-Game.prototype.start = function() {
+Game.prototype.start = function () {
   setInterval(this.update.bind(this), 100);
 };
 
-Game.prototype.update = function() {
+Game.prototype.update = function () {
   this.snake.moveForward(this.rows, this.columns);
+  if (this.snake.hasEatenFood(this.food)) {
+    this.clearFood();
+    this.generateFood();
+    this.drawFood();
+  }
   this.clearSnake();
   this.drawSnake();
 };
 
-Game.prototype.assignControls = function() {
-  $('body').on('keydown', function(e) {
-    // console.log(e.keyCode);
+Game.prototype.clearFood = function () {
+  $('.food').removeClass('food');
+  this.food = undefined;
+};
+
+Game.prototype.assignControlKeys = function () {
+  $('body').on('keydown', function (e) {
 
     switch (e.keyCode) {
       case 37:
-      console.log(this);
         this.snake.goLeft();
         break;
       case 38:
-      console.log(this);
         this.snake.goUp();
         break;
       case 39:
-      console.log(this);
         this.snake.goRight();
         break;
       case 40:
-      console.log(this);
         this.snake.goDown();
         break;
 
@@ -63,6 +68,20 @@ Game.prototype.assignControls = function() {
   }.bind(this));
 };
 
+Game.prototype.generateFood = function () {
+  this.food = {
+    row: Math.floor(Math.random() * this.rows),
+    column: Math.floor(Math.random() * this.columns),
+  };
+};
+
+Game.prototype.drawFood = function () {
+  this.snake.body.forEach((position) => {
+    const selector = `[data-row=${this.food.row}][data-column=${this.food.column}]`;
+    $(selector).addClass('food');
+  });
+};
+
 $(document).ready(() => {
 
   const game = new Game({
@@ -70,6 +89,8 @@ $(document).ready(() => {
     columns: 50,
     snake: new Snake(),
   });
+  game.assignControlKeys();
+  game.generateFood();
+  game.drawFood();
   game.start();
-  game.assignControls();
 });
