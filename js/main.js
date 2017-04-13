@@ -35,6 +35,34 @@ Game.prototype.update = function() {
   this.drawSnake();
 };
 
+Game.prototype.assignControls = function() {
+  $('body').on('keydown', function(e) {
+    // console.log(e.keyCode);
+
+    switch (e.keyCode) {
+      case 37:
+      console.log(this);
+        this.snake.goLeft();
+        break;
+      case 38:
+      console.log(this);
+        this.snake.goUp();
+        break;
+      case 39:
+      console.log(this);
+        this.snake.goRight();
+        break;
+      case 40:
+      console.log(this);
+        this.snake.goDown();
+        break;
+
+      default:
+        break;
+    }
+  }.bind(this));
+};
+
 $(document).ready(() => {
 
   const game = new Game({
@@ -43,4 +71,5 @@ $(document).ready(() => {
     snake: new Snake(),
   });
   game.start();
+  game.assignControls();
 });
