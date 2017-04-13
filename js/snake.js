@@ -72,10 +72,17 @@ Snake.prototype.hasEatenFood = function (food) {
   return this.body[0].row === food.row && this.body[0].column === food.column;
 };
 
+Snake.prototype.hasEatenItSelf = function () {
+  return this.body.some(function (element, index, array) {
+    return (element.row === array[0].row
+    && element.column === array[0].column
+    && index != 0);
+  });
+};
+
 Snake.prototype.growUp = function () {
   if (this.previousTail) {
     this.body.push((this.previousTail));
     this.previousTail = undefined;
   }
 };
-

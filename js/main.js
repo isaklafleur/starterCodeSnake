@@ -13,6 +13,10 @@ function Game(options) {
   }
 }
 
+Game.prototype.start = function () {
+  this.intervalID = setInterval(
+    this.update.bind(this), 100);
+};
 
 Game.prototype.drawSnake = function () {
   this.snake.body.forEach((position) => {
@@ -25,10 +29,6 @@ Game.prototype.clearSnake = function () {
   $('.snake').removeClass('snake');
 };
 
-Game.prototype.start = function () {
-  setInterval(this.update.bind(this), 100);
-};
-
 Game.prototype.update = function () {
   this.snake.moveForward(this.rows, this.columns);
   if (this.snake.hasEatenFood(this.food)) {
@@ -37,6 +37,10 @@ Game.prototype.update = function () {
     this.generateFood();
     this.drawFood();
   }
+  if (this.snake.hasEatenItSelf()) {
+    this.stop();
+    alert('Game Over');
+  }
   this.clearSnake();
   this.drawSnake();
 };
@@ -44,6 +48,13 @@ Game.prototype.update = function () {
 Game.prototype.clearFood = function () {
   $('.food').removeClass('food');
   this.food = undefined;
+};
+
+Game.prototype.stop = function () {
+  if (this.intervalID) {
+    clearInterval(this.intervalID);
+    this.intervalID = undefined;
+  }
 };
 
 Game.prototype.assignControlKeys = function () {
@@ -61,6 +72,13 @@ Game.prototype.assignControlKeys = function () {
         break;
       case 40:
         this.snake.goDown();
+        break;
+      case 80:
+        if(this.intervalID) {
+          this.stop();
+        } else {
+          this.start();
+        }
         break;
 
       default:

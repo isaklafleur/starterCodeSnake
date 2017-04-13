@@ -24,6 +24,5 @@
     "live-server": "^1.2.0"
   },
   "dependencies": {
-    "eslint-config-airbnb-base": "^11.1.3"
   }
 }
